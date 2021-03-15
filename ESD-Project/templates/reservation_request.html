@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Available Reservations</title>
+{% endblock %}
+
+{% block body %}
+<div class="content">
+    
+    {% if reservation_result|length < 1 %}
+    <h4 style="text-align: center">There are no more slots for this restaurant</h4>
+    {% else %}
+    <h4 style="text-align: center">Here are the available reservation slots for {{reservation_result.data.reservationID}}</h4>
+    <table border =1>
+        <tr>
+            
+            <th>Reservation ID</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Duration</th>
+            <th>Capacity</th>
+        </tr>
+            <tr>
+                <td>{{ reservation_result.data.reservationID }}</td>
+                <td>{{ reservation_result.data.date }}</td>
+                <td>{{ reservation_result.data.time }}</td>
+                <td>{{ reservation_result.data.duration }}</td>
+                <td>{{ reservation_result.data.capacity }}</td>   
+            </tr>
+
+    </table>
+    {% endif %}
+
+    <div class="form">
+        <form action="/" method="POST">
+            <input type="text" name="content" id="content">
+            <input type="submit" value="Add Task">
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,47 @@
+
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Welcome to Restaurant City</title>
+{% endblock %}
+
+{% block body %}
+<div class="content">
+    <h1 style="text-align: center">Welcome to Restaurant City</h1>
+    {% if restaurantList|length < 1 %}
+    <h4 style="text-align: center">Make Reservations Here!</h4>
+    <h3 style="text-align: center">The following restaurants here are available!</h3>
+    {% else %}
+    <table border =1>
+        <tr>
+            <th>Restaurant Name</th>
+            <th>Restaurant Description</th>
+            <th>Location</th>
+            <th>Rating</th>
+            <th>Branch</th>
+            <th>Make reservation</th>
+        </tr>
+        
+        {% for data in restaurantList["restaurant"] %}
+            <tr>
+                
+                <td>{{ data.name }}</td>
+                <td>{{ data.description }}</td>
+                <td>{{ data.location }}</td>
+                <td>{{ data.rating }}</td>
+                <td>{{ data.branch }}</td>
+                <td><a href= "/reserve/{{data.restaurantID}}" >Reserve</a></td>
+                
+            </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+
+    <div class="form">
+        <form action="/" method="POST">
+            <input type="text" name="content" id="content">
+            <input type="submit" value="Add Task">
+        </form>
+    </div>
+</div>
+{% endblock %}
