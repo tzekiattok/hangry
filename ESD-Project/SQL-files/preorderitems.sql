@@ -27,6 +27,7 @@ CREATE TABLE IF NOT EXISTS `preorderitems` (
   `itemID` int AUTO_INCREMENT NOT NULL ,
   `orderID` int NOT NULL ,
   `itemName` varchar(64) NOT NULL,
+  `price` decimal NOT NULL,
   `quantity` int NOT NULL,
   PRIMARY KEY (`itemID`,`orderID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

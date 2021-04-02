@@ -32,7 +32,7 @@ class pre_order_items(db.Model):
     orderID = db.Column(db.Integer, primary_key=True)
     itemID = db.Column(db.Integer)
     itemName = db.Column(db.VARCHAR)
-    price = db.Column(db.Integer)
+    price = db.Column(db.Decimal)
     quantity = db.Column(db.Integer)
 
     def __init__(self,orderID,itemID,itemName,price,quantity):
