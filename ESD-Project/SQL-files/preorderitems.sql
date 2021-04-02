@@ -25,7 +25,7 @@ USE `preorderitems`;
 DROP TABLE IF EXISTS `preorderitems`;
 CREATE TABLE IF NOT EXISTS `preorderitems` (
   `itemID` int AUTO_INCREMENT NOT NULL ,
-  `orderID` int NOT NULL ,
+  `orderID` varchar(64) NOT NULL ,
   `itemName` varchar(64) NOT NULL,
   `price` decimal NOT NULL,
   `quantity` int NOT NULL,
@@ -35,22 +35,22 @@ CREATE TABLE IF NOT EXISTS `preorderitems` (
 --
 --
 
-INSERT INTO `preorderitems` (`orderID`, `itemName`, `quantity`) VALUES
-(1, 'Chicken Nuggets', 2),
-(1, 'Popcorn Chicken', 6),
-(1, 'Striploin', 3),
-(2, 'BBQ Chicken', 5),
-(2, 'Teriyaki Salmon', 2),
-(3, 'Fish & Chips', 1),
-(4, 'Salted Egg Prawn Pasta', 2),
-(5, 'BBQ Chicken', 2),
-(5, 'Chicken Nuggets', 4),
-(6, 'Classic Fish Burger', 2),
-(6, 'Fish & Chips', 3),
-(7, 'Popcorn Chicken', 1),
-(8, 'Ribeye', 1),
-(8, 'Beef Burger', 1),
-(9, 'Striploin', 1);
+INSERT INTO `preorderitems` (`orderID`, `itemName`, `price`, `quantity`) VALUES
+('1', 'Chicken Nuggets', 4.50, 2),
+('1', 'Popcorn Chicken', 5.50, 6),
+('1', 'Striploin', 13.80, 3),
+('2', 'BBQ Chicken', 15.00, 5),
+('2', 'Teriyaki Salmon', 7.50, 2),
+('3', 'Fish & Chips', 8.50, 1),
+('4', 'Salted Egg Prawn Pasta', 9.00, 2),
+('5', 'BBQ Chicken', 15.00, 2),
+('5', 'Chicken Nuggets', 4.50, 4),
+('6', 'Classic Fish Burger', 7.00, 2),
+('6', 'Fish & Chips', 8.50, 3),
+('7', 'Popcorn Chicken', 5.50, 1),
+('8', 'Ribeye', 17.30, 1),
+('8', 'Beef Burger', 9.50, 1),
+('9', 'Striploin', 13.80, 1);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

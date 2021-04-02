@@ -19,7 +19,7 @@ USE `pre_order`;
 
 DROP TABLE IF EXISTS `pre_order`;
 CREATE TABLE IF NOT EXISTS `pre_order` (
-  orderID varchar (64) NOT NULL ,
+  orderID varchar(64) NOT NULL ,
   customerID varchar(64) NOT NULL,
   status varchar(30) NOT NULL,
 
@@ -40,12 +40,12 @@ CREATE TABLE IF NOT EXISTS `pre_order` (
 
 -- Dumping data for table `pre_order`
 INSERT INTO `pre_order`(`customerID`,`orderID`, `status`) VALUES
-('bhorbee', 'Order1', 'Confirmed'),
-('Alvinng', 'Order2', 'Confirmed'),
-('starsis', 'Order3', 'Confirmed'),
-('sherry', 'Order4', 'Confirmed'),
-('kelppy', 'Order5', 'Confirmed'),
-('IMDYING', 'Order6', 'Confirmed')
+('bhorbee', '1', 'Confirmed'),
+('Alvinng', '2', 'Confirmed'),
+('starsis', '3', 'Confirmed'),
+('sherry', '4', 'Confirmed'),
+('kelppy', '5', 'Confirmed'),
+('IMDYING', '6', 'Confirmed')
 ;
 
 
