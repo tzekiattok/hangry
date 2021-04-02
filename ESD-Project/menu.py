@@ -4,8 +4,8 @@ from os import environ
 
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('dbURL')
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root@localhost:3306/menu'
+# app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('dbURL')
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root@localhost:3306/menu'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
@@ -16,7 +16,7 @@ class menu(db.Model):
 
     menuid = db.Column(db.Integer, primary_key=True)
     itemid = db.Column(db.Integer, primary_key=True)
-    restaurantid = db.Column(db.Integer)
+    restaurantid = db.Column(db.String(64), primary_key=True)
     category = db.Column(db.String(64), nullable=False)
     itemname = db.Column(db.String(64), nullable=False)
     description = db.Column(db.String(1024), nullable=False)
@@ -58,12 +58,14 @@ class menu(db.Model):
 
 @app.route("/menu/<string:restaurantid>")
 def get_restaurantmenu(restaurantid):
-    result = menu.query.filter_by(restaurantid=restaurantid).first()
-    if result:
+    result = menu.query.filter_by(restaurantid=restaurantid).all()
+    if len(result):
         return jsonify(
             {
                 "code": 200,
-                "data": result.json()
+                "data": {
+                    "menu": [menu1.json() for menu1 in  result]
+                }
             }
         )
     return jsonify(
@@ -74,4 +76,5 @@ def get_restaurantmenu(restaurantid):
     ), 404
 
 if __name__ == '__main__':
-    app.run(port=5000, debug=True) 
+    app.run(port=5005, debug=True) 
+
