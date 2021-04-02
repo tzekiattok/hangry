@@ -34,21 +34,34 @@ DROP TABLE IF EXISTS `menu`;
 CREATE TABLE IF NOT EXISTS `menu`(
 	`menuid` int NOT NULL,
     `itemid` int NOT NULL,
-    `restaurantid` int NOT NULL,
+    `restaurantid` varchar(64) NOT NULL,
     `category` varchar(64) NOT NULL,
     `itemname` varchar(64) NOT NULL,
     `description` varchar(64) NOT NULL,
     `price` decimal(10,2) NOT NULL,
     `image` varchar(1024) NOT NULL,
-    PRIMARY KEY(`menuid`, `itemid`)
+    PRIMARY KEY(`menuid`,`itemid`, `restaurantid`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `book`
+-- Dumping data for table `menu`
 --
 
 INSERT INTO `menu` (`menuid`, `itemid`, `restaurantid`, `category`, `itemname`, `description`, `price`, `image`) VALUES
-( 1, 1, 1, 'Mains', 'Chicken Rice', 'A plate of chicken with rice', 24.99, 'images/chickenrice.jpg' );
+( 1, 1, 'EighteenChefz', 'Mains', 'Chicken Rice', 'A plate of chicken with rice', 24.99, 'static/menuImage/chickenrice.jpg' ),
+( 1, 2, 'EighteenChefz', 'Mains', 'Laksa', 'A bowl of curry noodles', 1.99, 'static/menuImage/laksa.jpg' ),
+
+( 2, 1, 'Mala123', 'Mains', 'Mala Bowl', 'A bowl of mala things', 17.99, 'static/menuImags/malabowl.jpg' ),
+( 2, 2, 'Mala123', 'Drinks', 'Mala Drink', 'A drink of mala sauce', 120.99, 'static/menuImage/maladrink.jpg' ),
+
+
+( 3, 1, 'Weizhi', 'Mains', 'Duck Rice', 'A plate of duck with rice', 6.99, 'static/menuImage/duckrice.jpg' ),
+( 3, 2, 'Weizhi', 'Mains', 'Yong Tao Foo', 'A bowl of healthy goodness', 5.99, 'static/menuImage/yongtaofoo.jpg' ),
+
+( 4, 1, 'XJWangz', 'Mains', 'Wang Specialty', 'Order to find out', 24.99, 'static/menuImage/wangspecialty.jpg' ),
+( 4, 2, 'XJWangz', 'Sides', 'Chicken Wang', 'A plate of wang wangs', 54.99, 'static/menuImage/chickenwang.jpg' );
+
+
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
