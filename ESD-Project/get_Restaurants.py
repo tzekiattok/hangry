@@ -1,11 +1,16 @@
 from flask import Flask, request, jsonify,render_template
 from flask_cors import CORS
-
-
+#Complex MS
+import json
 import os
 
+import amqp_setup
+import pika
 import requests
 from invokes import invoke_http
+import os
+import requests
+
 
 app = Flask(__name__)
 CORS(app)
@@ -86,6 +91,10 @@ def get_Reservations(restaurantID):
             "data": {"order_result": reservation_result},
             "message": "Order creation failure sent for error handling."
         }
+
+#to add AMQP in 
+
+#API to send the email
 @app.route("/request_reservation/<string:customerID>/<string:reservationID>",methods=['POST','GET'])
 def request_Reservation(customerID,reservationID):
     reservation_result =invoke_http(reservation_URL+'/requestReservation/'+customerID+'/'+reservationID)
@@ -100,6 +109,24 @@ def request_Reservation(customerID,reservationID):
             "data": {"order_result": reservation_result},
             "message": "Order creation failure sent for error handling."
         }
+    url = "https://rapidprod-sendgrid-v1.p.rapidapi.com/mail/send"
+
+    payload = "{\"personalizations\": [{\"to\": [{ \"email\": \"tzekiat.tok.2019@smu.edu.sg\"}],\"subject\": \"Hello, World!\" }],\"from\": {  \"email\": \"toktzekiat@gmail.com\"},\"content\": [ { \"type\": \"text/plain\", \"value\": \"Hello, World!\" } ]}"
+    
+    
+    headers = {
+        'content-type': "application/json",
+        'x-rapidapi-key': "886f2677a1msh5ff304f26342ba6p1870d2jsn60147b27c6b5",
+        'x-rapidapi-host': "rapidprod-sendgrid-v1.p.rapidapi.com"            }
+
+    response = requests.request("POST", url, data=payload, headers=headers)
+    print(payload)
+    print(response.text,'is the response')
+    message = json.dumps('tzekiat.tok.2019@smu.edu.sg made a request')
+    #send email confirmation notification to restaurant owners
+    #use of MQ Rabbit
+    amqp_setup.channel.basic_publish(exchange=amqp_setup.exchangename, routing_key="Mala123.request", 
+            body=message, properties=pika.BasicProperties(delivery_mode = 2))
     return render_template('reservation_request.html',reservation_result=reservation_result)
     
 if __name__ == "__main__":

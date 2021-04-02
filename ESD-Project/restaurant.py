@@ -2,6 +2,9 @@ from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 app = Flask(__name__)
 from os import environ
+import json
+import amqp_setup
+monitorBindingKey='#'
 #Restaurant DB configuration
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root@localhost:3306/restaurant'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -18,9 +21,11 @@ class Restaurant(dbr.Model):
     location = dbr.Column(dbr.String(64), nullable=False)
     description = dbr.Column(dbr.String(500), nullable=False)
     rating = dbr.Column(dbr.Float(precision=2))
-    review = dbr.Column(dbr.String(300), nullable=True)
-
-    def __init__(self, restaurantID, name, branch, category, location, description, rating, review):
+    ratingCount = dbr.Column(dbr.Float(precision=2))
+    image = dbr.Column(dbr.String(500), nullable=True)
+    email = dbr.Column(dbr.String(500), nullable=True)
+    
+    def __init__(self, restaurantID, name, branch, category, location, description, rating, ratingCount, image,email):
         self.restaurantID = restaurantID
         self.name = name
         self.branch=  branch
@@ -28,10 +33,12 @@ class Restaurant(dbr.Model):
         self.location = location
         self.description = description
         self.rating = rating
-        self.review= review
+        self.ratingCount = ratingCount
+        self.image= image
+        self.email = email
 
     def json(self):
-        return {"restaurantID": self.restaurantID, "name": self.name, "branch": self.branch, "category": self.category, "location": self.location,"description" :self.description,"rating": self.rating,"review": self.review}
+        return {"restaurantID": self.restaurantID, "name": self.name, "branch": self.branch, "category": self.category, "location": self.location,"description" :self.description,"rating": self.rating,"ratingCount":self.ratingCount,"image": self.image,"email":self.email}
 
 ####################################################################################################################################################################
 
@@ -133,6 +140,29 @@ def create_restaurant(restaurantID):
             "data": restaurant.json()
         }
     ), 201
+
+####################################################################################################################################################################
+
+#Recieve incoming request based on restaurant owner ID
+#Listening for requests
+####################################################################################################################################################################
+@app.route("/restaurant/viewRequests/<string:restaurantID>", methods=['GET','POST'])
+def receiveReservation(restaurantID):#activates when rest ID is entered
+    amqp_setup.check_setup()
+    queue_name = 'reservationRequest'
+    
+    # set up a consumer and start to wait for coming messages
+    amqp_setup.channel.basic_consume(queue=queue_name, on_message_callback=callback, auto_ack=True)
+    amqp_setup.channel.start_consuming() 
+
+def callback(channel, method, properties, body): # required signature for the callback; no return
+    print("\nReceived an order log by " + __file__)
+    processOrderLog(json.loads(body))
+    print() # print a new line feed
+
+def processOrderLog(order):
+    print("Recording an order log:")
+    print(order)
 
 ####################################################################################################################################################################
 # Dont edit what is after this
