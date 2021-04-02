@@ -45,11 +45,11 @@ CREATE TABLE IF NOT EXISTS `customer` (
 --
 
 
-INSERT INTO `customer` (`customerID`,`name`, `phone`, `telegram`) VALUES
-('bhorbee','Bhorbee Bee', '96189197', '@sexyBhorbee'),
-('bartok','Bart Tok', '62353535', '@BarkTok'),
-('ravioli','Ravio Lee', '88663377', '@abcxzy'),
-('cornyho123','Corny Ho', '91231111', '@blacky');
+INSERT INTO `customer` (`customerID`,`name`, `phone`, `telegram`,`profilePic`) VALUES
+('bhorbee','Bhorbee Bee', '96189197', '@sexyBhorbee','image/customerImage/bhorbee.jpg'),
+('bartok','Bart Tok', '62353535', '@BarkTok','image/customerImage/bartok.JPG'),
+('ravioli','Ravio Lee', '88663377', '@abcxzy','image/customerImage/ravioli.JPG'),
+('cornyho123','Corny Ho', '91231111', '@blacky','image/customerImage/cornyho123.JPG');
 
 COMMIT;
 

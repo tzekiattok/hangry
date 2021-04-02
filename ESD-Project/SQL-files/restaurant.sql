@@ -37,7 +37,9 @@ CREATE TABLE IF NOT EXISTS `restaurant` (
   `location` varchar(64) NOT NULL,
   `description` varchar(10000) NOT NULL,
   `rating` double NOT NULL,
-  `review` varchar(500) DEFAULT NULL,
+  `ratingCount` double NOT NULL,
+  `image` varchar(500) DEFAULT NULL,
+  `email` varchar(500) NOT NULL,
   PRIMARY KEY (`restaurantID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -45,13 +47,14 @@ CREATE TABLE IF NOT EXISTS `restaurant` (
 -- Dumping data for table `restaurant`
 --
 
-INSERT INTO `restaurant` (`restaurantID`, `name`, `branch`, `category`, `location`, `description`, `rating`, `review`) VALUES
-('EighteenChefz', '18 Chefs', 'Novena S', 'Western Cuisine', 'Novena Square #03-12', '18 Chef is a fine dining restaurant for cheap teenagers', 4.1, ''),
-('Mala123', 'Watashiwa Mala', 'Lot 1', 'Chinese Cuisine', 'Lot 1 #01-11', 'Super hot mala for insecure teens', 3.7, ''),
-('Weizhi', 'Wei Zhi China Wine', 'Yew Tee ', 'Wine', 'Yew Tee #B0-01', 'Wei Zhi`s china wine has orginated back from the bodoh dynstasty....', 4.8, ''),
-('XJWangz', 'Wang`s and Wank`s', 'Tekong', 'Chinese Cuisine', 'Tekong Ferry', 'Eat some tekong boys like xing jie', 1, '');
+INSERT INTO `restaurant` (`restaurantID`, `name`, `branch`, `category`, `location`, `description`, `rating`, `ratingCount`,`image`,`email`) VALUES
+('EighteenChefz', '18 Chefs', 'Novena S', 'Western Cuisine', 'Novena Square #03-12', '18 Chef is a fine dining restaurant for cheap teenagers', 4.1,55, 'EighteenChefz.jpg','toktzekiat@gmail.com'),
+('Mala123', 'Watashiwa Mala', 'Lot 1', 'Chinese Cuisine', 'Lot 1 #01-11', 'Super hot mala for insecure teens', 3.7,12, 'Mala123.jpg','toktzekiat@gmail.com'),
+('Weizhi', 'Wei Zhi China Wine', 'Yew Tee ', 'Wine', 'Yew Tee #B0-01', 'Wei Zhi`s china wine has orginated back from the bodoh dynstasty....', 4.8,33, 'WeiZhi.jpg','toktzekiat@gmail.com'),
+('XJWangz', 'Wang`s and Wank`s', 'Tekong', 'Chinese Cuisine', 'Tekong Ferry', 'Eat some tekong boys like xing jie', 1, 21 ,'XJWangz.jpg','toktzekiat@gmail.com');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
