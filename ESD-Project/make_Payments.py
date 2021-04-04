@@ -27,7 +27,7 @@ CORS(app)
 #restaurantID = "Eighteenchefz"
 
 #List of Microservices needed for this COMPLEX microservice
-customer_URL = "http://localhost:5000/"
+customer_URL = "http://localhost:5006/"
 restaurant_URL = "http://localhost:5001/"
 
 #@app.route("/customerID/<string:customerID>" ,methods =['GET','POST'])
@@ -67,14 +67,14 @@ def check_reservation():
     # return render_template('reservation_UI.html', reservationsList = reservationsList)
 
     #Look at Error/Working code?
-    code = reservation_result['code']
+    code = result['code']
     if code not in range(200, 300):
         print('\n\n-----Retrieval of reservation failed-----')
-        print("Order status ({:d}) sent to the error microservice:".format(code), reservation_result)
+        print("Order status ({:d}) sent to the error microservice:".format(code), result)
 
         return {
             "code": 500,
-            "data": {"reservation_result": reservation_result},
+            "data": {"reservation_result": result},
             "message": "reservation creation creation failure sent for error handling."
         }
 
@@ -108,14 +108,14 @@ def get_menu(restaurantID):
     # return render_template('check_reservation.html', menuList = menuList)
 
     # Look at Error/Working code?
-    code = reservation_result['code']
+    code = result['code']
     if code not in range(200, 300):
         print('\n\n-----Retrieval of reservation failed-----')
-        print("Order status ({:d}) sent to the error microservice:".format(code), menu_result)
+        print("Order status ({:d}) sent to the error microservice:".format(code),result)
 
         return {
             "code": 500,
-            "data": {"menu_result": menu_result},
+            "data": {"menu_result": result},
             "message": "menu creation failure sent for error handling."
         }
 
