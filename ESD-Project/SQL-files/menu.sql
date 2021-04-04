@@ -48,18 +48,18 @@ CREATE TABLE IF NOT EXISTS `menu`(
 --
 
 INSERT INTO `menu` (`menuid`, `itemid`, `restaurantid`, `category`, `itemname`, `description`, `price`, `image`) VALUES
-( 1, 1, 'EighteenChefz', 'Mains', 'Chicken Rice', 'A plate of chicken with rice', 24.99, 'static/menuImage/chickenrice.jpg' ),
-( 1, 2, 'EighteenChefz', 'Mains', 'Laksa', 'A bowl of curry noodles', 1.99, 'static/menuImage/laksa.jpg' ),
+( 1, 1, 'EighteenChefz', 'Mains', 'Chicken Rice', 'A plate of chicken with rice', 4.00, 'static/menuImage/chickenrice.jpg' ),
+( 1, 2, 'EighteenChefz', 'Mains', 'Laksa', 'A bowl of curry noodles', 4.00, 'static/menuImage/laksa.jpg' ),
 
-( 2, 1, 'Mala123', 'Mains', 'Mala Bowl', 'A bowl of mala things', 17.99, 'static/menuImags/malabowl.jpg' ),
-( 2, 2, 'Mala123', 'Drinks', 'Mala Drink', 'A drink of mala sauce', 120.99, 'static/menuImage/maladrink.jpg' ),
+( 2, 1, 'Mala123', 'Mains', 'Mala Bowl', 'A bowl of mala things', 17.00, 'static/menuImags/malabowl.jpg' ),
+( 2, 2, 'Mala123', 'Drinks', 'Mala Drink', 'A drink of mala sauce', 120.00, 'static/menuImage/maladrink.jpg' ),
 
 
-( 3, 1, 'Weizhi', 'Mains', 'Duck Rice', 'A plate of duck with rice', 6.99, 'static/menuImage/duckrice.jpg' ),
-( 3, 2, 'Weizhi', 'Mains', 'Yong Tao Foo', 'A bowl of healthy goodness', 5.99, 'static/menuImage/yongtaofoo.jpg' ),
+( 3, 1, 'Weizhi', 'Mains', 'Duck Rice', 'A plate of duck with rice', 8.00, 'static/menuImage/duckrice.jpg' ),
+( 3, 2, 'Weizhi', 'Mains', 'Yong Tao Foo', 'A bowl of healthy goodness', 7.00, 'static/menuImage/yongtaofoo.jpg' ),
 
-( 4, 1, 'XJWangz', 'Mains', 'Wang Specialty', 'Order to find out', 24.99, 'static/menuImage/wangspecialty.jpg' ),
-( 4, 2, 'XJWangz', 'Sides', 'Chicken Wang', 'A plate of wang wangs', 54.99, 'static/menuImage/chickenwang.jpg' );
+( 4, 1, 'XJWangz', 'Mains', 'Wang Specialty', 'Order to find out', 27.00, 'static/menuImage/wangspecialty.jpg' ),
+( 4, 2, 'XJWangz', 'Sides', 'Chicken Wang', 'A plate of wang wangs', 88.00, 'static/menuImage/chickenwang.jpg' );
 
 
 COMMIT;
