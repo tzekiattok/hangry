@@ -29,9 +29,9 @@ CREATE TABLE IF NOT EXISTS `reservation` (
   `customerID` varchar(64) DEFAULT NULL,
   `capacity` int NOT NULL,
   `date` Date NOT NULL,
-  `time` time not NULL,
+  `time` time NOT NULL,
+  `status` varchar(64) NOT NULL,
   `duration` float NOT NULL,
-  `status` varchar(10) NOT NULL,
   PRIMARY KEY (`reservationID`,`restaurantID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -39,10 +39,10 @@ CREATE TABLE IF NOT EXISTS `reservation` (
 --
 
 INSERT INTO `reservation` (`restaurantID`, `capacity`, `date`, `time`,`duration`, `status`,`customerID`) VALUES
-('EighteenChefz', 4, '2021-04-01', '12:00:00', 2.00, 'open',NULL),
-('EighteenChefz', 4, '2021-04-01', '14:00:00', 2.00, 'open',NULL),
-('EighteenChefz', 4, '2021-04-01', '16:00:00', 2.00, 'open','Bartok'),
-('EighteenChefz', 2, '2021-04-01', '18:00', 2.00, 'open',NULL),
+('EighteenChefz', 4, '2021-04-01', '12:00:00', 2.00, 'pending', 'cornyho123'),
+('EighteenChefz', 4, '2021-04-01', '14:00:00', 2.00, 'pending','cornyho123'),
+('EighteenChefz', 4, '2021-04-01', '16:00:00', 2.00, 'pending','Bartok'),
+('EighteenChefz', 2, '2021-04-01', '18:00', 2.00, 'pending', 'cornyho123'),
 ('EighteenChefz', 4, '2021-04-01', '20:00', 2.00, 'open',NULL),
 ('EighteenChefz', 6, '2021-04-02', '12:00', 2.00, 'open',NULL),
 ('EighteenChefz', 6, '2021-04-02', '14:00', 2.00, 'open',NULL),

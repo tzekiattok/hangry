@@ -24,7 +24,7 @@ class pre_order(db.Model):
         self.status = status
  
     def json(self):
-        return {"orderID": self.orderID, "customerID":self.customerID , "status":self.status}
+        return {"orderID": self.orderID, "customerID":self.customerID , "status":self.status }
 
 class pre_order_items(db.Model):
     __tablename__ = "pre_order_items"
@@ -127,3 +127,4 @@ def create_pre_order(Order7):
 
 if __name__ == '__main__':
     app.run(port=5004, debug=True)
+

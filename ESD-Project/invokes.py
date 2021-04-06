@@ -28,6 +28,7 @@ def invoke_http(url, method='GET', json=None, **kwargs):
 
     ## Check http call result
     if r.status_code != requests.codes.ok:
+        print(r.status_code)
         code = r.status_code
     try:
         result = r.json() if len(r.content)>0 else ""

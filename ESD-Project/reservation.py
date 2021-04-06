@@ -189,7 +189,123 @@ def retrieve_reservation_by_customer(customerID):
     ), 404
 #reserve a slot
 
+@app.route("/reservation/customer/<string:reservationID>" ,methods =['GET','POST'])
+def retrieve_customerID_by_reservationID(reservationID):
+    # capital R, you are calling a class created above
+    reservationRecord = Reservation.query.filter_by(reservationID = reservationID).first()
+    customerId = reservationRecord.customerID
+    
+    if customerId:
+        return jsonify(
+            {
+                "code": 200,
+                "message": customerId
+            }
+        )
+    return jsonify(
+        {
+            "code": 404,
+            "message": "There are no customer under this reservation."
+        }
+    ), 404
 
+
+@app.route("/reservation/accept/<string:reservationID>", methods = ['GET', 'POST'])
+def accept_reservation(reservationID):
+    
+    reservationRecord = Reservation.query.filter_by(reservationID = reservationID).first()
+    reservationRecord.status = 'confirmed'
+    dbr.session.commit()
+    
+    return jsonify(
+            {
+                "code": 200,
+                "message": "Reservation ID: " + str(reservationRecord.reservationID) + " has been confirmed!",
+                "data": {
+                    "time": str(reservationRecord.time),
+                    "date": str(reservationRecord.date)
+                }
+            }
+        )
+
+@app.route("/reservation/decline/<string:reservationID>", methods = ['GET', 'POST'])
+def decline_reservation(reservationID):
+    
+    reservationRecord = Reservation.query.filter_by(reservationID = reservationID).first()
+    reservationRecord.status = 'declined'
+    dbr.session.commit()
+    
+    return jsonify(
+            {
+                "code": 200,
+                "message": "Reservation ID: " + str(reservationRecord.reservationID) + " has been declined!",
+                "data": {
+                    "time": str(reservationRecord.time),
+                    "date": str(reservationRecord.date)
+                }
+            }
+        )
+@app.route("/pendingreservation/<string:restaurantID>")
+def pending_reservation_restaurant_by_ID(restaurantID):
+    # capital R, you are calling a class created above
+    reservationList2= Reservation.query.filter_by(restaurantID= restaurantID,status = "pending")
+    if reservationList2:
+        for x in reservationList2:
+            
+            temp1 = json.dumps(x.time,default= str)
+            temp1 = temp1[1:-1]
+            x.time = temp1
+            temp2 = json.dumps(x.date,default= str)
+            temp2 = temp2[1:-1]
+            x.date= temp2
+            
+            #Must json.encode back when updating to DB
+        return jsonify(
+            {
+                "code": 200,
+                "data": {
+                    "reservation": [reservation.json() for reservation in  reservationList2]
+                }
+            }
+        )
+    return jsonify(
+        {
+            "code": 404,
+            "message": "There are no reservations for this restaurant."
+        }
+    ), 404
+
+
+@app.route("/getreservationID/<int:reservationID>")
+def get_any_reservation_by_id(reservationID):
+    # capital R, you are calling a class created above
+    reservationList2= Reservation.query.filter_by(reservationID= reservationID)
+    
+    if reservationList2:
+        for x in reservationList2:
+            
+            temp1 = json.dumps(x.time,default= str)
+            temp1 = temp1[1:-1]
+            x.time = temp1
+            temp2 = json.dumps(x.date,default= str)
+            temp2 = temp2[1:-1]
+            x.date= temp2
+            
+            #Must json.encode back when updating to DB
+        return jsonify(
+            {
+                "code": 200,
+                "data": {
+                    "reservation": [reservation.json() for reservation in  reservationList2]
+                }
+            }
+        )
+    return jsonify(
+        {
+            "code": 404,
+            "message": "There are no reservations for this restaurant."
+        }
+    ), 404
 ####################################################################################################################################################################
 # Dont edit what is after this
 if __name__ == '__main__':

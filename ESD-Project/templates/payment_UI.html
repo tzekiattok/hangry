@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block head %}
+<title>Available Reservations</title>
+{% endblock %}
+
+{% block body %}
+<div class="content">
+    <h1  style="text-align: center">Hello {{customerID}}</h1>
+    <h4 id="header" style="text-align: center">/h4>
+
+    <table border =1>
+        <tr>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Duration</th>
+            <th>status</th>
+            <th>Confirm</th>
+        </tr>
+        
+        {% for data in reservationList["reservation"] %}
+            <tr>
+                <td>{{ data.date }}</td>
+                <td>{{ data.time }}</td>
+                <td>{{ data.duration }}</td>
+                <td>{{ data.status }}</td>
+                <td><a href="/check_reservation/{{customerID}}/{{data.reservationID}}">confirm</a></td>
+                
+            </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+
+    <div class="form">
+        <form action="/" method="POST">
+            <input type="text" name="content" id="content">
+            <input type="submit" value="Add Task">
+        </form>
+    </div>
+</div>
+
+{% endblock %}

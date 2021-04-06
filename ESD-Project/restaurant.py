@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify,render_template
 from flask_sqlalchemy import SQLAlchemy
 app = Flask(__name__)
 from os import environ
@@ -68,7 +68,7 @@ def get_all_restaurants():
     ), 404
 
 # Customer: return all specific restaurant based on ID 
-@app.route("/<string:restaurantID>")
+@app.route("/restaurantID/<string:restaurantID>")
 def retrieve_restaurant_by_ID(restaurantID):
     # capital R, you are calling a class created above
     restaurant= Restaurant.query.filter_by(restaurantID= restaurantID).first()
@@ -146,23 +146,44 @@ def create_restaurant(restaurantID):
 #Recieve incoming request based on restaurant owner ID
 #Listening for requests
 ####################################################################################################################################################################
-@app.route("/restaurant/viewRequests/<string:restaurantID>", methods=['GET','POST'])
+#@app.route("/restaurant/viewRequests/<string:restaurantID>", methods=['GET','POST'])'
+'''msg =''
 def receiveReservation(restaurantID):#activates when rest ID is entered
     amqp_setup.check_setup()
-    queue_name = 'reservationRequest'
-    
+    queue_name = restaurantID
+    msg =''
     # set up a consumer and start to wait for coming messages
-    amqp_setup.channel.basic_consume(queue=queue_name, on_message_callback=callback, auto_ack=True)
-    amqp_setup.channel.start_consuming() 
+    amqp_setup.channel.basic_consume(queue=queue_name,on_message_callback=callback, auto_ack=True)
+    print('times calleda')
+    temp =[]
+    x = amqp_setup.channel.start_consuming()
+    print('a')
+    print(x);
+    print('b')
+  
+    
 
 def callback(channel, method, properties, body): # required signature for the callback; no return
-    print("\nReceived an order log by " + __file__)
-    processOrderLog(json.loads(body))
-    print() # print a new line feed
+    print("\nReceived notification message" + __file__)
+    print('times called')
+    return processOrderLog(json.loads(body))
+     # print a new line feed
 
 def processOrderLog(order):
-    print("Recording an order log:")
+    print("Notification Message:")
     print(order)
+    return order
+
+
+@app.route("/seeNotifications/<string:restaurantID>",methods = ['GET','POST'])
+def seeNotifications(restaurantID):
+    temp = receiveReservation(restaurantID)
+    print(temp)
+    return temp
+    '''
+    
+
+    
 
 ####################################################################################################################################################################
 # Dont edit what is after this

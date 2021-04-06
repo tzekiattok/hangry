@@ -120,10 +120,26 @@ def create_book(customerID):
         }
     ), 201
 
-
+@app.route("/getCustomerTele/<string:customerID>")
+def retrieve_telegram_by_ID(customerID):
+    # capital C, you are calling a class created above
+    customer = Customer.query.filter_by(customerID=customerID).first()
+    
+    return jsonify(
+        {
+            "code": 200,
+            "message": str(customer.telegram)
+        }
+    )
+    return jsonify(
+        {
+            "code": 404,
+            "message": "There are no customer."
+        }
+    ), 404
 
 ####################################################################################################################################################################
 # Dont edit what is after this
 if __name__ == '__main__':
-    app.run(port=5000, debug=True)
+    app.run(port=5006, debug=True)
 #docker run -p 5000:5000 -e dbURL=mysql+mysqlconnector://is213@host.docker.internal:3306/customer toktzekiat/customer
